@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "dgSpecHash": "BGztLh2eLb0=",
+  "success": true,
+  "projectFilePath": "/Users/alexandruvint/Documents/GitHub/Pareto/Pareto.csproj",
+  "expectedPackageFiles": [
+    "/Users/alexandruvint/.nuget/packages/avalonia/11.0.10/avalonia.11.0.10.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/avalonia.angle.windows.natives/2.1.0.2023020321/avalonia.angle.windows.natives.2.1.0.2023020321.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/avalonia.buildservices/0.0.29/avalonia.buildservices.0.0.29.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/avalonia.desktop/11.0.10/avalonia.desktop.11.0.10.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/avalonia.freedesktop/11.0.10/avalonia.freedesktop.11.0.10.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/avalonia.native/11.0.10/avalonia.native.11.0.10.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/avalonia.remote.protocol/11.0.10/avalonia.remote.protocol.11.0.10.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/avalonia.skia/11.0.10/avalonia.skia.11.0.10.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/avalonia.win32/11.0.10/avalonia.win32.11.0.10.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/avalonia.x11/11.0.10/avalonia.x11.11.0.10.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/harfbuzzsharp/7.3.0/harfbuzzsharp.7.3.0.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/harfbuzzsharp.nativeassets.linux/7.3.0/harfbuzzsharp.nativeassets.linux.7.3.0.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/harfbuzzsharp.nativeassets.macos/7.3.0/harfbuzzsharp.nativeassets.macos.7.3.0.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/harfbuzzsharp.nativeassets.webassembly/7.3.0/harfbuzzsharp.nativeassets.webassembly.7.3.0.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/harfbuzzsharp.nativeassets.win32/7.3.0/harfbuzzsharp.nativeassets.win32.7.3.0.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/microcom.runtime/0.11.0/microcom.runtime.0.11.0.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/skiasharp/2.88.7/skiasharp.2.88.7.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/skiasharp.nativeassets.linux/2.88.7/skiasharp.nativeassets.linux.2.88.7.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/skiasharp.nativeassets.macos/2.88.7/skiasharp.nativeassets.macos.2.88.7.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/skiasharp.nativeassets.webassembly/2.88.7/skiasharp.nativeassets.webassembly.2.88.7.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/skiasharp.nativeassets.win32/2.88.7/skiasharp.nativeassets.win32.2.88.7.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/system.componentmodel.annotations/4.5.0/system.componentmodel.annotations.4.5.0.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/tmds.dbus.protocol/0.15.0/tmds.dbus.protocol.0.15.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'Tmds.DBus.Protocol' 0.15.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-xrw6-gwf8-vvr9",
+      "projectPath": "/Users/alexandruvint/Documents/GitHub/Pareto/Pareto.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/alexandruvint/Documents/GitHub/Pareto/Pareto.csproj",
+      "libraryId": "Tmds.DBus.Protocol",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}
