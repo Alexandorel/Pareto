@@ -47,6 +47,10 @@
             "Avalonia.Desktop": {
               "target": "Package",
               "version": "[11.0.10, )"
+            },
+            "Avalonia.Themes.Fluent": {
+              "target": "Package",
+              "version": "[11.0.10, )"
             }
           },
           "imports": [

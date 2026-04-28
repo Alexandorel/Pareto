@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "BGztLh2eLb0=",
+  "dgSpecHash": "MfWFcmUsx4w=",
   "success": true,
   "projectFilePath": "/Users/alexandruvint/Documents/GitHub/Pareto/Pareto.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,7 @@
     "/Users/alexandruvint/.nuget/packages/avalonia.native/11.0.10/avalonia.native.11.0.10.nupkg.sha512",
     "/Users/alexandruvint/.nuget/packages/avalonia.remote.protocol/11.0.10/avalonia.remote.protocol.11.0.10.nupkg.sha512",
     "/Users/alexandruvint/.nuget/packages/avalonia.skia/11.0.10/avalonia.skia.11.0.10.nupkg.sha512",
+    "/Users/alexandruvint/.nuget/packages/avalonia.themes.fluent/11.0.10/avalonia.themes.fluent.11.0.10.nupkg.sha512",
     "/Users/alexandruvint/.nuget/packages/avalonia.win32/11.0.10/avalonia.win32.11.0.10.nupkg.sha512",
     "/Users/alexandruvint/.nuget/packages/avalonia.x11/11.0.10/avalonia.x11.11.0.10.nupkg.sha512",
     "/Users/alexandruvint/.nuget/packages/harfbuzzsharp/7.3.0/harfbuzzsharp.7.3.0.nupkg.sha512",
