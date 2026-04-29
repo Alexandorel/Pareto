@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
@@ -100,6 +101,31 @@ namespace ParetoApp
         private void OnCloseClicked(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private async void OnCopyToClipboardClicked(object sender, RoutedEventArgs e)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("# \ud83d\udcc5 Pareto Weekly Plan\n");
+
+            foreach (var day in WeekDays)
+            {
+                sb.AppendLine($"## {day.DayName}");
+                foreach (var task in day.Tasks)
+                {
+                    // Adaugăm intervalul de timp doar dacă a fost completat
+                    string timeInfo = string.IsNullOrWhiteSpace(task.TimeInterval) ? "" : $" ({task.TimeInterval})";
+                    sb.AppendLine($"- [ ] {task.TaskName}{timeInfo}");
+                }
+                sb.AppendLine();
+            }
+
+            // Accesăm clipboard-ul sistemului de operare și copiem textul generat
+            var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
+            if (clipboard != null)
+            {
+                await clipboard.SetTextAsync(sb.ToString().TrimEnd());
+            }
         }
     }
 }

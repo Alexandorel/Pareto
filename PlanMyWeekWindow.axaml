@@ -55,6 +55,9 @@
             </ItemsControl>
         </ScrollViewer>
         
-        <Button Grid.Row="2" Content="Close" HorizontalAlignment="Center" Margin="0,15,0,0" Click="OnCloseClicked" />
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10" Margin="0,15,0,0">
+            <Button Content="Copy to Clipboard" Click="OnCopyToClipboardClicked" Background="#E3F2FD" FontWeight="Bold" />
+            <Button Content="Close" Click="OnCloseClicked" />
+        </StackPanel>
     </Grid>
 </Window>
