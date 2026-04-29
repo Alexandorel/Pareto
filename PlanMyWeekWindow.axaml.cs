@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
@@ -105,22 +106,35 @@ namespace ParetoApp
 
         private async void OnCopyToClipboardClicked(object sender, RoutedEventArgs e)
         {
+            foreach (var day in WeekDays)
+            {
+                foreach (var task in day.Tasks)
+                {
+                    if (string.IsNullOrWhiteSpace(task.TimeInterval))
+                    {
+                        var master = MasterTasks.FirstOrDefault(m => m.TaskName == task.TaskName);
+                        if (master != null && !string.IsNullOrWhiteSpace(master.TimeInterval))
+                        {
+                            task.TimeInterval = master.TimeInterval;
+                        }
+                    }
+                }
+            }
+
             var sb = new StringBuilder();
-            sb.AppendLine("# \ud83d\udcc5 Pareto Weekly Plan\n");
+            sb.AppendLine("# Pareto Weekly Plan\n");
 
             foreach (var day in WeekDays)
             {
                 sb.AppendLine($"## {day.DayName}");
                 foreach (var task in day.Tasks)
                 {
-                    // Adaugăm intervalul de timp doar dacă a fost completat
-                    string timeInfo = string.IsNullOrWhiteSpace(task.TimeInterval) ? "" : $" ({task.TimeInterval})";
-                    sb.AppendLine($"- [ ] {task.TaskName}{timeInfo}");
+                    string timeInfo = string.IsNullOrWhiteSpace(task.TimeInterval) ? "" : $" (⏱️ {task.TimeInterval})";
+                    sb.AppendLine($"- {task.TaskName}{timeInfo}");
                 }
                 sb.AppendLine();
             }
 
-            // Accesăm clipboard-ul sistemului de operare și copiem textul generat
             var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
             if (clipboard != null)
             {
