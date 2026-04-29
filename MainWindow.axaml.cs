@@ -48,7 +48,7 @@ namespace ParetoApp
 
         private async void OnPlanMyWeekClicked(object sender, RoutedEventArgs e)
         {
-            var planWindow = new PlanMyWeekWindow();
+            var planWindow = new PlanMyWeekWindow(CriticalTasksList, MajorTasksList, MinorTasksList, DeferredTasksList);
             await planWindow.ShowDialog(this);
         }
 
