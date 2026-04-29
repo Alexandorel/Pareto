@@ -19,31 +19,63 @@
         <SplitView.Content>
             <StackPanel Margin="20" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <UniformGrid Columns="2">
-                <!-- Card 1 -->
-                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" Height="150">
+                <Border x:Name="CardCritical" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
                     <StackPanel>
                         <TextBlock Text="Critical" FontSize="20" FontWeight="Bold" />
+                        <ItemsControl x:Name="CriticalTasks">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFCDD2" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
                 </Border>
 
-                <!-- Card 2 -->
-                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" Height="150">
+                <Border x:Name="CardMajor" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
                     <StackPanel>
                         <TextBlock Text="Major" FontSize="20" FontWeight="Bold" />
+                        <ItemsControl x:Name="MajorTasks">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFE082" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
                 </Border>
 
-                <!-- Card 3 -->
-                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" Height="150">
+                <Border x:Name="CardMinor" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
                     <StackPanel>
                         <TextBlock Text="Minor" FontSize="20" FontWeight="Bold" />
+                        <ItemsControl x:Name="MinorTasks">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFF59D" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
                 </Border>
 
-                <!-- Card 4 -->
-                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" Height="150">
+                <Border x:Name="CardDeferred" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
                     <StackPanel>
                         <TextBlock Text="Deferred" FontSize="20" FontWeight="Bold" />
+                        <ItemsControl x:Name="DeferredTasks">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#C8E6C9" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
                 </Border>
                 </UniformGrid>
@@ -51,8 +83,22 @@
                 <!-- Tasks Label -->
                 <StackPanel Orientation="Horizontal" Margin="10,20,10,10" VerticalAlignment="Center">
                     <TextBlock Text="Tasks:" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0" />
-                    <TextBox Watermark="Enter new task" Width="300" Height="35" VerticalContentAlignment="Center" />
+                    <TextBox x:Name="TaskInput" Watermark="Enter new task" Width="300" Height="35" VerticalContentAlignment="Center" />
+                    <Button Content="Add Task" Margin="10,0,0,0" Click="OnAddTaskClicked" />
                 </StackPanel>
+
+                <!-- Unassigned Tasks -->
+                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="10" Margin="10,0,10,10" MinHeight="100">
+                    <ItemsControl x:Name="UnassignedTasks">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#E0E0E0" CornerRadius="4" Padding="10" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
+                                    <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
 
             </StackPanel>
         </SplitView.Content>

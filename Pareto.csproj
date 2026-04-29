@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Support for Avalonia -->
     <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10" />
+    <PackageReference Include="Tmds.DBus.Protocol" Version="0.15.2" />
   </ItemGroup>
 
 </Project>

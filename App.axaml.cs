@@ -15,7 +15,6 @@ namespace ParetoApp
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                // Setăm fereastra pe care abia am creat-o ca fiind fereastra principală
                 desktop.MainWindow = new MainWindow();
             }
 
