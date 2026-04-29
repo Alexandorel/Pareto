@@ -57,10 +57,8 @@ namespace ParetoApp
                     var dragData = new DataObject();
                     dragData.Set("application/pareto-task", taskText);
                     
-                    // Așteptăm să vedem ce s-a întâmplat cu operațiunea de Drag & Drop
                     var result = await DragDrop.DoDragDrop(e, dragData, DragDropEffects.Move);
 
-                    // Dacă Drop-ul a fost într-o zonă nepermisă sau a fost anulat (rezultând None), ștergem task-ul
                     if (result == DragDropEffects.None)
                     {
                         bool removed = UnassignedTasksList.Remove(taskText) ||
@@ -79,7 +77,6 @@ namespace ParetoApp
             {
                 if (sender is Control targetControl && targetControl.Name != null)
                 {
-                    // Dacă task-ul este dat drumul pe Coșul de Gunoi
                     if (targetControl.Name == "TrashCan")
                     {
                         bool removed = UnassignedTasksList.Remove(taskText) ||
@@ -88,7 +85,7 @@ namespace ParetoApp
                                        MinorTasksList.Remove(taskText) ||
                                        DeferredTasksList.Remove(taskText);
 
-                        e.DragEffects = DragDropEffects.Move; // Confirmăm succesul ca să nu existe delay de OS!
+                        e.DragEffects = DragDropEffects.Move;
                         e.Handled = true;
                         return;
                     }
@@ -113,7 +110,7 @@ namespace ParetoApp
 
                         targetList.Add(taskText);
                         
-                        e.DragEffects = DragDropEffects.Move; // Confirmăm sistemului că mutarea a avut succes
+                        e.DragEffects = DragDropEffects.Move;
                         e.Handled = true;
                     }
                 }
