@@ -23,3 +23,6 @@ build_property.EnableCodeStyleSeverity =
 
 [/Users/alexandruvint/Documents/GitHub/Pareto/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/alexandruvint/Documents/GitHub/Pareto/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
