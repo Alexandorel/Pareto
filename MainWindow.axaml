@@ -80,12 +80,16 @@
                 </Border>
                 </UniformGrid>
                 
-                <Button x:Name="TrashCan" DragDrop.AllowDrop="True" HorizontalAlignment="Right" Margin="10,10,10,0">
-                    <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
-                        <TextBlock Text="🗑️" FontSize="16" VerticalAlignment="Center" />
-                        <TextBlock Text="Trash" FontWeight="Bold" VerticalAlignment="Center" />
-                    </StackPanel>
-                </Button>
+                <Grid Margin="10,10,10,0">
+                    <Button Content="Plan my week" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnPlanMyWeekClicked" />
+                    
+                    <Button x:Name="TrashCan" DragDrop.AllowDrop="True" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                            <TextBlock Text="🗑️" FontSize="16" VerticalAlignment="Center" />
+                            <TextBlock Text="Trash" FontWeight="Bold" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
 
                 <StackPanel Orientation="Horizontal" Margin="10,10,10,10" VerticalAlignment="Center">
                     <TextBlock Text="Tasks:" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0" />

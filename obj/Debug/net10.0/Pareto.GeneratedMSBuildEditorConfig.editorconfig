@@ -26,3 +26,6 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [/Users/alexandruvint/Documents/GitHub/Pareto/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/alexandruvint/Documents/GitHub/Pareto/PlanMyWeekWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

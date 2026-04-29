@@ -1,0 +1,13 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ParetoApp.PlanMyWeekWindow"
+        Title="Plan My Week"
+        Width="200"
+        Height="300"
+        WindowStartupLocation="CenterOwner">
+    
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+        <TextBlock Text="Plan your week here!" FontSize="16" FontWeight="Bold" />
+        <Button Content="Close" HorizontalAlignment="Center" Click="OnCloseClicked" />
+    </StackPanel>
+</Window>

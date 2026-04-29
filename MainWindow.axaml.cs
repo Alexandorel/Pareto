@@ -46,6 +46,12 @@ namespace ParetoApp
             }
         }
 
+        private async void OnPlanMyWeekClicked(object sender, RoutedEventArgs e)
+        {
+            var planWindow = new PlanMyWeekWindow();
+            await planWindow.ShowDialog(this);
+        }
+
         private async void OnTaskPointerPressed(object sender, PointerPressedEventArgs e)
         {
             if (sender is Control control && control.DataContext is string taskText)
@@ -57,16 +63,7 @@ namespace ParetoApp
                     var dragData = new DataObject();
                     dragData.Set("application/pareto-task", taskText);
                     
-                    var result = await DragDrop.DoDragDrop(e, dragData, DragDropEffects.Move);
-
-                    if (result == DragDropEffects.None)
-                    {
-                        bool removed = UnassignedTasksList.Remove(taskText) ||
-                                       CriticalTasksList.Remove(taskText) ||
-                                       MajorTasksList.Remove(taskText) ||
-                                       MinorTasksList.Remove(taskText) ||
-                                       DeferredTasksList.Remove(taskText);
-                    }
+                    await DragDrop.DoDragDrop(e, dragData, DragDropEffects.Move);
                 }
             }
         }
