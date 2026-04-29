@@ -7,7 +7,6 @@ namespace ParetoApp
 {
     public partial class MainWindow : Window
     {
-        // Collections for each task category
         public ObservableCollection<string> UnassignedTasksList { get; } = new();
         public ObservableCollection<string> CriticalTasksList { get; } = new();
         public ObservableCollection<string> MajorTasksList { get; } = new();
@@ -17,17 +16,25 @@ namespace ParetoApp
         public MainWindow()
         {
             InitializeComponent();
-            
+
             UnassignedTasks.ItemsSource = UnassignedTasksList;
             CriticalTasks.ItemsSource = CriticalTasksList;
             MajorTasks.ItemsSource = MajorTasksList;
             MinorTasks.ItemsSource = MinorTasksList;
             DeferredTasks.ItemsSource = DeferredTasksList;
 
+            CriticalTasks.AddHandler(DragDrop.DropEvent, OnTaskDropped);
+            MajorTasks.AddHandler(DragDrop.DropEvent, OnTaskDropped);
+            MinorTasks.AddHandler(DragDrop.DropEvent, OnTaskDropped);
+            DeferredTasks.AddHandler(DragDrop.DropEvent, OnTaskDropped);
+
+            UnassignedTasks.AddHandler(DragDrop.DropEvent, OnTaskDropped);
             CardCritical.AddHandler(DragDrop.DropEvent, OnTaskDropped);
             CardMajor.AddHandler(DragDrop.DropEvent, OnTaskDropped);
             CardMinor.AddHandler(DragDrop.DropEvent, OnTaskDropped);
             CardDeferred.AddHandler(DragDrop.DropEvent, OnTaskDropped);
+
+            TrashCan.AddHandler(DragDrop.DropEvent, OnTaskDropped);
         }
 
         private void OnAddTaskClicked(object sender, RoutedEventArgs e)
@@ -43,39 +50,71 @@ namespace ParetoApp
         {
             if (sender is Control control && control.DataContext is string taskText)
             {
-                var dragData = new DataObject();
-                dragData.Set("TaskText", taskText);
+                var pointerPoint = e.GetCurrentPoint(this);
 
-                await DragDrop.DoDragDrop(e, dragData, DragDropEffects.Move);
+                if (pointerPoint.Properties.IsLeftButtonPressed)
+                {
+                    var dragData = new DataObject();
+                    dragData.Set("application/pareto-task", taskText);
+                    
+                    // Așteptăm să vedem ce s-a întâmplat cu operațiunea de Drag & Drop
+                    var result = await DragDrop.DoDragDrop(e, dragData, DragDropEffects.Move);
+
+                    // Dacă Drop-ul a fost într-o zonă nepermisă sau a fost anulat (rezultând None), ștergem task-ul
+                    if (result == DragDropEffects.None)
+                    {
+                        bool removed = UnassignedTasksList.Remove(taskText) ||
+                                       CriticalTasksList.Remove(taskText) ||
+                                       MajorTasksList.Remove(taskText) ||
+                                       MinorTasksList.Remove(taskText) ||
+                                       DeferredTasksList.Remove(taskText);
+                    }
+                }
             }
         }
 
         private void OnTaskDropped(object sender, DragEventArgs e)
         {
-            if (e.Data.Contains("TaskText") && e.Data.Get("TaskText") is string taskText)
+            if (e.Data.Contains("application/pareto-task") && e.Data.Get("application/pareto-task") is string taskText)
             {
-                UnassignedTasksList.Remove(taskText);
-                CriticalTasksList.Remove(taskText);
-                MajorTasksList.Remove(taskText);
-                MinorTasksList.Remove(taskText);
-                DeferredTasksList.Remove(taskText);
-
-                if (sender is Border border && border.Name != null)
+                if (sender is Control targetControl && targetControl.Name != null)
                 {
-                    switch (border.Name)
+                    // Dacă task-ul este dat drumul pe Coșul de Gunoi
+                    if (targetControl.Name == "TrashCan")
                     {
-                        case "CardCritical":
-                            CriticalTasksList.Add(taskText);
-                            break;
-                        case "CardMajor":
-                            MajorTasksList.Add(taskText);
-                            break;
-                        case "CardMinor":
-                            MinorTasksList.Add(taskText);
-                            break;
-                        case "CardDeferred":
-                            DeferredTasksList.Add(taskText);
-                            break;
+                        bool removed = UnassignedTasksList.Remove(taskText) ||
+                                       CriticalTasksList.Remove(taskText) ||
+                                       MajorTasksList.Remove(taskText) ||
+                                       MinorTasksList.Remove(taskText) ||
+                                       DeferredTasksList.Remove(taskText);
+
+                        e.DragEffects = DragDropEffects.Move; // Confirmăm succesul ca să nu existe delay de OS!
+                        e.Handled = true;
+                        return;
+                    }
+
+                    ObservableCollection<string>? targetList = targetControl.Name switch
+                    {
+                        "CardCritical" or "CriticalTasks" => CriticalTasksList,
+                        "CardMajor" or "MajorTasks" => MajorTasksList,
+                        "CardMinor" or "MinorTasks" => MinorTasksList,
+                        "CardDeferred" or "DeferredTasks" => DeferredTasksList,
+                        "UnassignedTasks" or "CardUnassigned" => UnassignedTasksList,
+                        _ => null
+                    };
+
+                    if (targetList != null)
+                    {
+                        bool removed = UnassignedTasksList.Remove(taskText) ||
+                                       CriticalTasksList.Remove(taskText) ||
+                                       MajorTasksList.Remove(taskText) ||
+                                       MinorTasksList.Remove(taskText) ||
+                                       DeferredTasksList.Remove(taskText);
+
+                        targetList.Add(taskText);
+                        
+                        e.DragEffects = DragDropEffects.Move; // Confirmăm sistemului că mutarea a avut succes
+                        e.Handled = true;
                     }
                 }
             }
