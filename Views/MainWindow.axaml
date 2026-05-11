@@ -13,6 +13,18 @@
             <StackPanel Margin="10" Spacing="10">
                 <Button Content="General" HorizontalAlignment="Stretch" CornerRadius="8" />
                 <Button Content="Pareto Board" HorizontalAlignment="Stretch" CornerRadius="8" />
+                <ItemsControl x:Name="BoardsList" ItemsSource="{Binding SavedBoards}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding}"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Margin="10,2,0,0"
+                                    CornerRadius="6"
+                                    Click="OnBoardClicked" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </SplitView.Pane>
 
@@ -109,6 +121,15 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Border>
+
+                <StackPanel Orientation="Horizontal" Margin="10,0,10,5" VerticalAlignment="Center">
+                    <TextBlock Text="Board:" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0" />
+                    <TextBox x:Name="BoardNameInput" Watermark="Enter board name" Width="250" Height="35" VerticalContentAlignment="Center" />
+                    <Button Content="💾 Save as Board" Margin="10,0,0,0" Click="OnSaveAsBoardClicked" />
+                    <Button Content="🧹 Clear" Margin="10,0,0,0" Click="OnClearClicked" />
+                </StackPanel>
+
+                <TextBlock x:Name="StatusText" Margin="10,0,10,10" Foreground="#555" FontStyle="Italic" />
 
             </StackPanel>
         </SplitView.Content>

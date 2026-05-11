@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -13,9 +14,14 @@ namespace ParetoApp
         public ObservableCollection<TaskItem> MinorTasksList { get; } = new();
         public ObservableCollection<TaskItem> DeferredTasksList { get; } = new();
 
+        public ObservableCollection<string> SavedBoards { get; } = new();
+
+        private readonly BoardStorage _storage = new();
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
 
             UnassignedTasks.ItemsSource = UnassignedTasksList;
             CriticalTasks.ItemsSource = CriticalTasksList;
@@ -35,6 +41,11 @@ namespace ParetoApp
             CardDeferred.AddHandler(DragDrop.DropEvent, OnTaskDropped);
 
             TrashCan.AddHandler(DragDrop.DropEvent, OnTaskDropped);
+
+            foreach (var name in _storage.ListBoards())
+            {
+                SavedBoards.Add(name);
+            }
         }
 
         private void OnAddTaskClicked(object sender, RoutedEventArgs e)
@@ -111,6 +122,55 @@ namespace ParetoApp
                         e.Handled = true;
                     }
                 }
+            }
+        }
+
+        private void OnSaveAsBoardClicked(object sender, RoutedEventArgs e)
+        {
+            string name = BoardNameInput.Text?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                StatusText.Text = "⚠️ Please enter a board name.";
+                return;
+            }
+
+            try
+            {
+                var board = new BoardData { Name = name };
+                foreach (var t in CriticalTasksList) board.Tasks[Priority.Critical].Add(t);
+                foreach (var t in MajorTasksList)    board.Tasks[Priority.Major].Add(t);
+                foreach (var t in MinorTasksList)    board.Tasks[Priority.Minor].Add(t);
+                foreach (var t in DeferredTasksList) board.Tasks[Priority.Deferred].Add(t);
+
+                _storage.Save(board);
+                if (!SavedBoards.Contains(name))
+                {
+                    SavedBoards.Add(name);
+                }
+                StatusText.Text = $"✅ Board '{name}' saved.";
+                BoardNameInput.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                StatusText.Text = $"❌ {ex.Message}";
+            }
+        }
+
+        private void OnClearClicked(object sender, RoutedEventArgs e)
+        {
+            UnassignedTasksList.Clear();
+            CriticalTasksList.Clear();
+            MajorTasksList.Clear();
+            MinorTasksList.Clear();
+            DeferredTasksList.Clear();
+            StatusText.Text = "🧹 General cleared.";
+        }
+
+        private void OnBoardClicked(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.Content is string boardName)
+            {
+                StatusText.Text = $"📋 Selected board: {boardName} (view coming in next step)";
             }
         }
     }
