@@ -18,16 +18,16 @@ namespace ParetoApp
         }
 
         public PlanMyWeekWindow(
-            ObservableCollection<string> critical,
-            ObservableCollection<string> major,
-            ObservableCollection<string> minor,
-            ObservableCollection<string> deferred) : this()
+            ObservableCollection<TaskItem> critical,
+            ObservableCollection<TaskItem> major,
+            ObservableCollection<TaskItem> minor,
+            ObservableCollection<TaskItem> deferred) : this()
         {
             var allTasks = new List<string>();
-            allTasks.AddRange(critical);
-            allTasks.AddRange(major);
-            allTasks.AddRange(minor);
-            allTasks.AddRange(deferred);
+            allTasks.AddRange(critical.Select(t => t.Text));
+            allTasks.AddRange(major.Select(t => t.Text));
+            allTasks.AddRange(minor.Select(t => t.Text));
+            allTasks.AddRange(deferred.Select(t => t.Text));
 
             foreach (var t in allTasks)
             {

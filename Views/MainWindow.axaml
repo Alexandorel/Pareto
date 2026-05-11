@@ -27,7 +27,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Background="#FFCDD2" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -42,7 +42,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Background="#FFE082" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -57,7 +57,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Background="#FFF59D" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -72,7 +72,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Background="#C8E6C9" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -103,7 +103,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="#E0E0E0" CornerRadius="4" Padding="10" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                    <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

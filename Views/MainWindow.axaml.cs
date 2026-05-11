@@ -7,11 +7,11 @@ namespace ParetoApp
 {
     public partial class MainWindow : Window
     {
-        public ObservableCollection<string> UnassignedTasksList { get; } = new();
-        public ObservableCollection<string> CriticalTasksList { get; } = new();
-        public ObservableCollection<string> MajorTasksList { get; } = new();
-        public ObservableCollection<string> MinorTasksList { get; } = new();
-        public ObservableCollection<string> DeferredTasksList { get; } = new();
+        public ObservableCollection<TaskItem> UnassignedTasksList { get; } = new();
+        public ObservableCollection<TaskItem> CriticalTasksList { get; } = new();
+        public ObservableCollection<TaskItem> MajorTasksList { get; } = new();
+        public ObservableCollection<TaskItem> MinorTasksList { get; } = new();
+        public ObservableCollection<TaskItem> DeferredTasksList { get; } = new();
 
         public MainWindow()
         {
@@ -41,7 +41,7 @@ namespace ParetoApp
         {
             if (!string.IsNullOrWhiteSpace(TaskInput.Text))
             {
-                UnassignedTasksList.Add(TaskInput.Text);
+                UnassignedTasksList.Add(new TaskItem { Text = TaskInput.Text });
                 TaskInput.Text = string.Empty;
             }
         }
@@ -54,15 +54,15 @@ namespace ParetoApp
 
         private async void OnTaskPointerPressed(object sender, PointerPressedEventArgs e)
         {
-            if (sender is Control control && control.DataContext is string taskText)
+            if (sender is Control control && control.DataContext is TaskItem task)
             {
                 var pointerPoint = e.GetCurrentPoint(this);
 
                 if (pointerPoint.Properties.IsLeftButtonPressed)
                 {
                     var dragData = new DataObject();
-                    dragData.Set("application/pareto-task", taskText);
-                    
+                    dragData.Set("application/pareto-task", task);
+
                     await DragDrop.DoDragDrop(e, dragData, DragDropEffects.Move);
                 }
             }
@@ -70,24 +70,24 @@ namespace ParetoApp
 
         private void OnTaskDropped(object sender, DragEventArgs e)
         {
-            if (e.Data.Contains("application/pareto-task") && e.Data.Get("application/pareto-task") is string taskText)
+            if (e.Data.Contains("application/pareto-task") && e.Data.Get("application/pareto-task") is TaskItem task)
             {
                 if (sender is Control targetControl && targetControl.Name != null)
                 {
                     if (targetControl.Name == "TrashCan")
                     {
-                        bool removed = UnassignedTasksList.Remove(taskText) ||
-                                       CriticalTasksList.Remove(taskText) ||
-                                       MajorTasksList.Remove(taskText) ||
-                                       MinorTasksList.Remove(taskText) ||
-                                       DeferredTasksList.Remove(taskText);
+                        bool removed = UnassignedTasksList.Remove(task) ||
+                                       CriticalTasksList.Remove(task) ||
+                                       MajorTasksList.Remove(task) ||
+                                       MinorTasksList.Remove(task) ||
+                                       DeferredTasksList.Remove(task);
 
                         e.DragEffects = DragDropEffects.Move;
                         e.Handled = true;
                         return;
                     }
 
-                    ObservableCollection<string>? targetList = targetControl.Name switch
+                    ObservableCollection<TaskItem>? targetList = targetControl.Name switch
                     {
                         "CardCritical" or "CriticalTasks" => CriticalTasksList,
                         "CardMajor" or "MajorTasks" => MajorTasksList,
@@ -99,14 +99,14 @@ namespace ParetoApp
 
                     if (targetList != null)
                     {
-                        bool removed = UnassignedTasksList.Remove(taskText) ||
-                                       CriticalTasksList.Remove(taskText) ||
-                                       MajorTasksList.Remove(taskText) ||
-                                       MinorTasksList.Remove(taskText) ||
-                                       DeferredTasksList.Remove(taskText);
+                        bool removed = UnassignedTasksList.Remove(task) ||
+                                       CriticalTasksList.Remove(task) ||
+                                       MajorTasksList.Remove(task) ||
+                                       MinorTasksList.Remove(task) ||
+                                       DeferredTasksList.Remove(task);
 
-                        targetList.Add(taskText);
-                        
+                        targetList.Add(task);
+
                         e.DragEffects = DragDropEffects.Move;
                         e.Handled = true;
                     }

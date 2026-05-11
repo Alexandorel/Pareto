@@ -1,0 +1,9 @@
+Informatiile despre Modelele create:
+
+Fișier	Rol	Cerințe bifate
+Priority.cs	Enum cu cele 4 priorități	Enumerări
+TaskItem.cs	Un task cu Text + Completed (cu binding)	Clase, interfețe, evenimente
+BoardData.cs	Containerul unui board (nume + 4 liste)	Colecții generice (Dictionary, List)
+BoardStorage.cs	Save / Load / List / Delete pe disk	Fișiere, serializare, excepții, LINQ
+PlannedTask.cs	(existent) Task cu interval pentru Plan My Week	INotifyPropertyChanged
+DayPlan.cs	(existent) Zi + lista de task-uri planificate	Colecții generice
