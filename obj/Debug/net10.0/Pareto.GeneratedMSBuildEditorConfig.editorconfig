@@ -24,8 +24,8 @@ build_property.EnableCodeStyleSeverity =
 [/Users/alexandruvint/Documents/GitHub/Pareto/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/alexandruvint/Documents/GitHub/Pareto/MainWindow.axaml]
+[/Users/alexandruvint/Documents/GitHub/Pareto/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/alexandruvint/Documents/GitHub/Pareto/PlanMyWeekWindow.axaml]
+[/Users/alexandruvint/Documents/GitHub/Pareto/Views/PlanMyWeekWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
