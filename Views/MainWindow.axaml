@@ -5,6 +5,41 @@
         Width="900"
         Height="800">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="BoardCriticalBg" Color="#FFFAFA" />
+                    <SolidColorBrush x:Key="BoardMajorBg"    Color="#FFFDF5" />
+                    <SolidColorBrush x:Key="BoardMinorBg"    Color="#FFFEF0" />
+                    <SolidColorBrush x:Key="BoardDeferredBg" Color="#F5FFF7" />
+                    <SolidColorBrush x:Key="BoardCardBorder" Color="Gray" />
+                    <SolidColorBrush x:Key="BoardTextFg"     Color="Black" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="BoardCriticalBg" Color="Black" />
+                    <SolidColorBrush x:Key="BoardMajorBg"    Color="Black" />
+                    <SolidColorBrush x:Key="BoardMinorBg"    Color="Black" />
+                    <SolidColorBrush x:Key="BoardDeferredBg" Color="Black" />
+                    <SolidColorBrush x:Key="BoardCardBorder" Color="White" />
+                    <SolidColorBrush x:Key="BoardTextFg"     Color="White" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Styles>
+        <Style Selector="CheckBox /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource BoardTextFg}" />
+        </Style>
+        <Style Selector="CheckBox:pointerover /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource BoardTextFg}" />
+        </Style>
+        <Style Selector="CheckBox:pressed /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource BoardTextFg}" />
+        </Style>
+    </Window.Styles>
+
     <!-- Principal Layout -->
     <SplitView DisplayMode="Inline" IsPaneOpen="True" OpenPaneLength="200">
 
@@ -43,7 +78,7 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Border Background="#FFCDD2" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="Black" />
                                                 </Border>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
@@ -58,7 +93,7 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Border Background="#FFE082" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="Black" />
                                                 </Border>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
@@ -73,7 +108,7 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Border Background="#FFF59D" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="Black" />
                                                 </Border>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
@@ -88,7 +123,7 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Border Background="#C8E6C9" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="Black" />
                                                 </Border>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
@@ -119,7 +154,7 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="#E0E0E0" CornerRadius="4" Padding="10" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="Black" />
                                         </Border>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -139,9 +174,9 @@
                         <TextBlock x:Name="BoardTitleText" FontSize="24" FontWeight="Bold" Margin="10,0,0,15" />
 
                         <UniformGrid Columns="2">
-                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="#FFFAFA">
+                            <Border BorderBrush="{DynamicResource BoardCardBorder}" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="{DynamicResource BoardCriticalBg}">
                                 <StackPanel>
-                                    <TextBlock Text="Critical" FontSize="20" FontWeight="Bold" Foreground="#C62828" />
+                                    <TextBlock Text="Critical" FontSize="20" FontWeight="Bold" Foreground="#E53935" />
                                     <ItemsControl x:Name="BoardCriticalList">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -152,9 +187,9 @@
                                 </StackPanel>
                             </Border>
 
-                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="#FFFDF5">
+                            <Border BorderBrush="{DynamicResource BoardCardBorder}" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="{DynamicResource BoardMajorBg}">
                                 <StackPanel>
-                                    <TextBlock Text="Major" FontSize="20" FontWeight="Bold" Foreground="#EF6C00" />
+                                    <TextBlock Text="Major" FontSize="20" FontWeight="Bold" Foreground="#FB8C00" />
                                     <ItemsControl x:Name="BoardMajorList">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -165,9 +200,9 @@
                                 </StackPanel>
                             </Border>
 
-                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="#FFFEF0">
+                            <Border BorderBrush="{DynamicResource BoardCardBorder}" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="{DynamicResource BoardMinorBg}">
                                 <StackPanel>
-                                    <TextBlock Text="Minor" FontSize="20" FontWeight="Bold" Foreground="#F9A825" />
+                                    <TextBlock Text="Minor" FontSize="20" FontWeight="Bold" Foreground="#FBC02D" />
                                     <ItemsControl x:Name="BoardMinorList">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -178,9 +213,9 @@
                                 </StackPanel>
                             </Border>
 
-                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="#F5FFF7">
+                            <Border BorderBrush="{DynamicResource BoardCardBorder}" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="{DynamicResource BoardDeferredBg}">
                                 <StackPanel>
-                                    <TextBlock Text="Deferred" FontSize="20" FontWeight="Bold" Foreground="#2E7D32" />
+                                    <TextBlock Text="Deferred" FontSize="20" FontWeight="Bold" Foreground="#66BB6A" />
                                     <ItemsControl x:Name="BoardDeferredList">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
