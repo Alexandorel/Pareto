@@ -12,6 +12,7 @@
         <SplitView.Pane>
             <StackPanel Margin="10" Spacing="10">
                 <Button Content="General" HorizontalAlignment="Stretch" CornerRadius="8" />
+                <Button Content="Pareto Board" HorizontalAlignment="Stretch" CornerRadius="8" />
             </StackPanel>
         </SplitView.Pane>
 
