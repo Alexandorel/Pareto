@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pareto")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+356c0ab686296beec1a5b59f8a38243a98b5dff2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b66d0d12d4a8423568123913becfcbced2feef2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pareto")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pareto")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

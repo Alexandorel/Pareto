@@ -7,11 +7,11 @@
 
     <!-- Principal Layout -->
     <SplitView DisplayMode="Inline" IsPaneOpen="True" OpenPaneLength="200">
-        
+
         <!-- Vertical Menu -->
         <SplitView.Pane>
             <StackPanel Margin="10" Spacing="10">
-                <Button Content="General" HorizontalAlignment="Stretch" CornerRadius="8" />
+                <Button Content="General" HorizontalAlignment="Stretch" CornerRadius="8" Click="OnGeneralClicked" />
                 <Button Content="Pareto Board" HorizontalAlignment="Stretch" CornerRadius="8" />
                 <ItemsControl x:Name="BoardsList" ItemsSource="{Binding SavedBoards}">
                     <ItemsControl.ItemTemplate>
@@ -30,108 +30,173 @@
 
         <!-- Content -->
         <SplitView.Content>
-            <StackPanel Margin="20" VerticalAlignment="Top" HorizontalAlignment="Left">
-                <UniformGrid Columns="2">
-                <Border x:Name="CardCritical" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
-                    <StackPanel>
-                        <TextBlock Text="Critical" FontSize="20" FontWeight="Bold" />
-                        <ItemsControl x:Name="CriticalTasks">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="#FFCDD2" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Border>
+            <Grid RowDefinitions="*, Auto" Margin="20">
+                <Grid Grid.Row="0">
 
-                <Border x:Name="CardMajor" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
-                    <StackPanel>
-                        <TextBlock Text="Major" FontSize="20" FontWeight="Bold" />
-                        <ItemsControl x:Name="MajorTasks">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="#FFE082" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Border>
+                    <!-- General view (creation / editing) -->
+                    <StackPanel x:Name="GeneralPanel" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <UniformGrid Columns="2">
+                            <Border x:Name="CardCritical" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
+                                <StackPanel>
+                                    <TextBlock Text="Critical" FontSize="20" FontWeight="Bold" />
+                                    <ItemsControl x:Name="CriticalTasks">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#FFCDD2" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
+                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
 
-                <Border x:Name="CardMinor" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
-                    <StackPanel>
-                        <TextBlock Text="Minor" FontSize="20" FontWeight="Bold" />
-                        <ItemsControl x:Name="MinorTasks">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="#FFF59D" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Border>
+                            <Border x:Name="CardMajor" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
+                                <StackPanel>
+                                    <TextBlock Text="Major" FontSize="20" FontWeight="Bold" />
+                                    <ItemsControl x:Name="MajorTasks">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#FFE082" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
+                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
 
-                <Border x:Name="CardDeferred" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
-                    <StackPanel>
-                        <TextBlock Text="Deferred" FontSize="20" FontWeight="Bold" />
-                        <ItemsControl x:Name="DeferredTasks">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="#C8E6C9" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Border>
-                </UniformGrid>
-                
-                <Grid Margin="10,10,10,0">
-                    <Button Content="Plan my week" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnPlanMyWeekClicked" />
-                    
-                    <Button x:Name="TrashCan" DragDrop.AllowDrop="True" HorizontalAlignment="Right">
-                        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
-                            <TextBlock Text="🗑️" FontSize="16" VerticalAlignment="Center" />
-                            <TextBlock Text="Trash" FontWeight="Bold" VerticalAlignment="Center" />
+                            <Border x:Name="CardMinor" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
+                                <StackPanel>
+                                    <TextBlock Text="Minor" FontSize="20" FontWeight="Bold" />
+                                    <ItemsControl x:Name="MinorTasks">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#FFF59D" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
+                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+
+                            <Border x:Name="CardDeferred" DragDrop.AllowDrop="True" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="250" MinHeight="150" Background="Transparent">
+                                <StackPanel>
+                                    <TextBlock Text="Deferred" FontSize="20" FontWeight="Bold" />
+                                    <ItemsControl x:Name="DeferredTasks">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#C8E6C9" CornerRadius="4" Padding="8" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
+                                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
+
+                        <Grid Margin="10,10,10,0">
+                            <Button Content="Plan my week" HorizontalAlignment="Left" VerticalAlignment="Center" Click="OnPlanMyWeekClicked" />
+
+                            <Button x:Name="TrashCan" DragDrop.AllowDrop="True" HorizontalAlignment="Right">
+                                <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                                    <TextBlock Text="🗑️" FontSize="16" VerticalAlignment="Center" />
+                                    <TextBlock Text="Trash" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,10,10,10" VerticalAlignment="Center">
+                            <TextBlock Text="Tasks:" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0" />
+                            <TextBox x:Name="TaskInput" Watermark="Enter new task" Width="300" Height="35" VerticalContentAlignment="Center" />
+                            <Button Content="Add Task" Margin="10,0,0,0" Click="OnAddTaskClicked" />
                         </StackPanel>
-                    </Button>
+
+                        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="10" Margin="10,0,10,10" MinHeight="100">
+                            <ItemsControl x:Name="UnassignedTasks">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#E0E0E0" CornerRadius="4" Padding="10" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
+                                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,0,10,5" VerticalAlignment="Center">
+                            <TextBlock Text="Board:" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0" />
+                            <TextBox x:Name="BoardNameInput" Watermark="Enter board name" Width="250" Height="35" VerticalContentAlignment="Center" />
+                            <Button Content="💾 Save as Board" Margin="10,0,0,0" Click="OnSaveAsBoardClicked" />
+                            <Button Content="🧹 Clear" Margin="10,0,0,0" Click="OnClearClicked" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Pareto Board view (checkbox mode) -->
+                    <StackPanel x:Name="ParetoBoardPanel" IsVisible="False" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <TextBlock x:Name="BoardTitleText" FontSize="24" FontWeight="Bold" Margin="10,0,0,15" />
+
+                        <UniformGrid Columns="2">
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="#FFFAFA">
+                                <StackPanel>
+                                    <TextBlock Text="Critical" FontSize="20" FontWeight="Bold" Foreground="#C62828" />
+                                    <ItemsControl x:Name="BoardCriticalList">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding Completed, Mode=TwoWay}" Content="{Binding Text}" Margin="0,4,0,0" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="#FFFDF5">
+                                <StackPanel>
+                                    <TextBlock Text="Major" FontSize="20" FontWeight="Bold" Foreground="#EF6C00" />
+                                    <ItemsControl x:Name="BoardMajorList">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding Completed, Mode=TwoWay}" Content="{Binding Text}" Margin="0,4,0,0" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="#FFFEF0">
+                                <StackPanel>
+                                    <TextBlock Text="Minor" FontSize="20" FontWeight="Bold" Foreground="#F9A825" />
+                                    <ItemsControl x:Name="BoardMinorList">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding Completed, Mode=TwoWay}" Content="{Binding Text}" Margin="0,4,0,0" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="20" Margin="10" Width="280" MinHeight="150" Background="#F5FFF7">
+                                <StackPanel>
+                                    <TextBlock Text="Deferred" FontSize="20" FontWeight="Bold" Foreground="#2E7D32" />
+                                    <ItemsControl x:Name="BoardDeferredList">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding Completed, Mode=TwoWay}" Content="{Binding Text}" Margin="0,4,0,0" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
+                    </StackPanel>
+
                 </Grid>
 
-                <StackPanel Orientation="Horizontal" Margin="10,10,10,10" VerticalAlignment="Center">
-                    <TextBlock Text="Tasks:" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0" />
-                    <TextBox x:Name="TaskInput" Watermark="Enter new task" Width="300" Height="35" VerticalContentAlignment="Center" />
-                    <Button Content="Add Task" Margin="10,0,0,0" Click="OnAddTaskClicked" />
-                </StackPanel>
-                
-                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Padding="10" Margin="10,0,10,10" MinHeight="100">
-                    <ItemsControl x:Name="UnassignedTasks">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="#E0E0E0" CornerRadius="4" Padding="10" Margin="0,5,0,0" PointerPressed="OnTaskPointerPressed" Cursor="Hand">
-                                    <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Border>
-
-                <StackPanel Orientation="Horizontal" Margin="10,0,10,5" VerticalAlignment="Center">
-                    <TextBlock Text="Board:" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0" />
-                    <TextBox x:Name="BoardNameInput" Watermark="Enter board name" Width="250" Height="35" VerticalContentAlignment="Center" />
-                    <Button Content="💾 Save as Board" Margin="10,0,0,0" Click="OnSaveAsBoardClicked" />
-                    <Button Content="🧹 Clear" Margin="10,0,0,0" Click="OnClearClicked" />
-                </StackPanel>
-
-                <TextBlock x:Name="StatusText" Margin="10,0,10,10" Foreground="#555" FontStyle="Italic" />
-
-            </StackPanel>
+                <TextBlock x:Name="StatusText" Grid.Row="1" Margin="10,5,10,0" Foreground="#555" FontStyle="Italic" />
+            </Grid>
         </SplitView.Content>
     </SplitView>
 </Window>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -17,6 +18,7 @@ namespace ParetoApp
         public ObservableCollection<string> SavedBoards { get; } = new();
 
         private readonly BoardStorage _storage = new();
+        private BoardData? _currentBoard = null;
 
         public MainWindow()
         {
@@ -170,7 +172,73 @@ namespace ParetoApp
         {
             if (sender is Button btn && btn.Content is string boardName)
             {
-                StatusText.Text = $"📋 Selected board: {boardName} (view coming in next step)";
+                try
+                {
+                    var board = _storage.Load(boardName);
+                    if (board == null)
+                    {
+                        StatusText.Text = $"❌ Board '{boardName}' not found.";
+                        return;
+                    }
+
+                    UnsubscribeFromCurrentBoard();
+                    _currentBoard = board;
+                    SubscribeToCurrentBoard();
+
+                    BoardTitleText.Text = $"📋 {boardName}";
+                    BoardCriticalList.ItemsSource = board.Tasks[Priority.Critical];
+                    BoardMajorList.ItemsSource    = board.Tasks[Priority.Major];
+                    BoardMinorList.ItemsSource    = board.Tasks[Priority.Minor];
+                    BoardDeferredList.ItemsSource = board.Tasks[Priority.Deferred];
+
+                    GeneralPanel.IsVisible = false;
+                    ParetoBoardPanel.IsVisible = true;
+                    StatusText.Text = "";
+                }
+                catch (Exception ex)
+                {
+                    StatusText.Text = $"❌ {ex.Message}";
+                }
+            }
+        }
+
+        private void OnGeneralClicked(object sender, RoutedEventArgs e)
+        {
+            UnsubscribeFromCurrentBoard();
+            GeneralPanel.IsVisible = true;
+            ParetoBoardPanel.IsVisible = false;
+            StatusText.Text = "";
+        }
+
+        private void SubscribeToCurrentBoard()
+        {
+            if (_currentBoard == null) return;
+            foreach (var list in _currentBoard.Tasks.Values)
+                foreach (var task in list)
+                    task.PropertyChanged += OnTaskCompletedChanged;
+        }
+
+        private void UnsubscribeFromCurrentBoard()
+        {
+            if (_currentBoard == null) return;
+            foreach (var list in _currentBoard.Tasks.Values)
+                foreach (var task in list)
+                    task.PropertyChanged -= OnTaskCompletedChanged;
+            _currentBoard = null;
+        }
+
+        private void OnTaskCompletedChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(TaskItem.Completed) && _currentBoard != null)
+            {
+                try
+                {
+                    _storage.Save(_currentBoard);
+                }
+                catch (Exception ex)
+                {
+                    StatusText.Text = $"❌ Auto-save failed: {ex.Message}";
+                }
             }
         }
     }
